@@ -46,4 +46,4 @@ https://github.com/w3c/activitypub/issues/291 <br>
 
 ## Licensing information
 
-ISC
+MIT
