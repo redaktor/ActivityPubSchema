@@ -23,7 +23,7 @@ Any implementor of ActivityPub wants to validate incoming data or build forms fo
 ## How do I use this package?
 
 With any software consuming JSON Schema draft 07 … <br>
-A node.js script to validate all the examples from [activitystreams-vocabulary](https://www.w3.org/TR/activitystreams-vocabulary/) is included:<br>
+A [Node.js](https://nodejs.org/en/) script to validate all the examples from [activitystreams-vocabulary](https://www.w3.org/TR/activitystreams-vocabulary/) is included:<br>
 - `cd` to the project root
 - `npm i`
 - `npm test`
