@@ -1,0 +1,24 @@
+{
+  "name": "activitypub_validation",
+  "version": "1.0.0",
+  "description": "Validating examples of the Activity Vocabulary at https://www.w3.org/TR/activitystreams-vocabulary",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./test/index.js"
+  },
+  "keywords": [
+    "activitypub",
+    "activitystreams",
+    "activityvocabulary",
+    "vocabulary",
+    "JSON",
+    "schema",
+    "schemas",
+    "JSON-Schema"
+  ],
+  "author": "Sebastian Lasse <api@redaktorcms.com> (https://github.com/redaktor/)",
+  "license": "ISC",
+  "dependencies": {
+    "ajv": "^6.0.1"
+  }
+}

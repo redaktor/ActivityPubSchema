@@ -1,0 +1,65 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/OrderedCollectionPage.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Ordered Collection Page",
+  "description": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-orderedcollectionpage",
+
+  "allOf": [
+    { "$ref": "OrderedCollection.json#" },
+    { "$ref": "CollectionPage.json#" },
+    {
+      "properties": {
+        "startIndex": { "$ref": "#/definitions/startIndex" }
+      }
+    }
+  ],
+
+  "definitions": {
+    "startIndex": {
+      "description": "A non-negative integer value identifying the relative position within the logical view of this collection.",
+      "type": "integer",
+      "minimum": 0
+    },
+
+    "possibleType": {
+      "enum": [
+        "OrderedCollectionPage",
+        "http://www.w3.org/ns/activitystreams#OrderedCollectionPage",
+        "https://www.w3.org/ns/activitystreams#OrderedCollectionPage"
+      ]
+    },
+    "byTypeRef": {
+      "properties": {
+        "type": {
+          "oneOf": [
+            { "$ref": "#/definitions/possibleType" },
+            { "type": "array", "contains": { "$ref": "#/definitions/possibleType" } }
+          ]
+        }
+      }
+    },
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+        { "$ref": "Link.json#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    }
+  }
+}

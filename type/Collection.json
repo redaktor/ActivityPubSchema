@@ -1,0 +1,90 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/Collection.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Collection",
+  "description": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-collection",
+
+  "allOf": [
+    { "$ref": "Object.json#" },
+    {
+      "properties": {
+        "items": { "$ref": "#/definitions/items" },
+        "orderedItems": { "$ref": "#/definitions/orderedItems" },
+        "totalItems": { "$ref": "#/definitions/totalItems" },
+        "current": { "$ref": "#/definitions/current" },
+        "first": { "$ref": "#/definitions/first" },
+        "last": { "$ref": "#/definitions/last" }
+      }
+    }
+  ],
+
+  "definitions": {
+    "items": {
+      "description": "Identifies the unordered items contained in a collection.",
+      "allOf": [{ "$ref": "Object.json#/definitions/possibleRefArray" }]
+    },
+    "orderedItems": {
+      "$comment": "FIXME ISSUE EXISTS https://github.com/w3c/activitystreams/issues/437",
+      "description": "Identifies the ordered items contained in a collection.",
+      "allOf": [{ "$ref": "Object.json#/definitions/possibleRefArray" }]
+    },
+    "totalItems": {
+      "description": "A non-negative integer specifying the total number of objects contained by the logical view of the collection.",
+      "type": "integer",
+      "minimum": 0
+    },
+    "current": {
+      "description": "In a paged Collection, indicates the page that contains the most recently updated member items.",
+      "allOf": [{ "$ref": "CollectionPage.json#/definitions/possibleRef" }]
+    },
+    "first": {
+      "description": "In a paged Collection, indicates the furthest preceeding page of items in the collection.",
+      "allOf": [{ "$ref": "CollectionPage.json#/definitions/possibleRef" }]
+    },
+    "last": {
+      "description": "In a paged Collection, indicates the furthest proceeding page of the collection.",
+      "allOf": [{ "$ref": "CollectionPage.json#/definitions/possibleRef" }]
+    },
+
+    "possibleType": {
+      "enum": [
+        "Collection",
+        "http://www.w3.org/ns/activitystreams#Collection",
+        "https://www.w3.org/ns/activitystreams#Collection"
+      ]
+    },
+    "byTypeRef": {
+      "properties": {
+        "type": {
+          "oneOf": [
+            { "$ref": "#/definitions/possibleType" },
+            { "type": "array", "contains": { "$ref": "#/definitions/possibleType" } }
+          ]
+        }
+      }
+    },
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+        { "$ref": "Link.json#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    }
+  }
+}

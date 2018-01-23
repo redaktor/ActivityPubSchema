@@ -1,0 +1,50 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/TentativeAccept.json",
+  "title": "Tentative Accept",
+  "description": "A specialization of Accept indicating that the acceptance is tentative.",
+  "$comment": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-tentativeaccept",
+  "allOf": [ { "$ref": "Activity.json#" } ],
+
+  "definitions": {
+    "possibleType": {
+      "enum": [
+        "TentativeAccept",
+        "http://www.w3.org/ns/activitystreams#TentativeAccept",
+        "https://www.w3.org/ns/activitystreams#TentativeAccept"
+      ]
+    },
+    "byTypeRef": {
+      "properties": {
+        "type": {
+          "oneOf": [
+            { "$ref": "#/definitions/possibleType" },
+            { "type": "array", "contains": { "$ref": "#/definitions/possibleType" } }
+          ]
+        }
+      }
+    },
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+        { "$ref": "Link.json#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    }
+  }
+}

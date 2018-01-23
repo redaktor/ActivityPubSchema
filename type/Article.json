@@ -1,0 +1,49 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/Article.json",
+  "title": "Article",
+  "description": "Represents any kind of multi-paragraph written work.",
+  "$comment": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-article",
+  "allOf": [ { "$ref": "Object.json#" } ],
+  "definitions": {
+    "possibleType": {
+      "enum": [
+        "Article",
+        "http://www.w3.org/ns/activitystreams#Article",
+        "https://www.w3.org/ns/activitystreams#Article"
+      ]
+    },
+    "byTypeRef": {
+      "properties": {
+        "type": {
+          "oneOf": [
+            { "$ref": "#/definitions/possibleType" },
+            { "type": "array", "contains": { "$ref": "#/definitions/possibleType" } }
+          ]
+        }
+      }
+    },
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+        { "$ref": "Link.json#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    }
+  }
+}

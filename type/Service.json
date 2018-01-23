@@ -1,0 +1,50 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/Service.json",
+  "title": "Service",
+  "description": "Represents a service of any kind.",
+  "$comment": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-service",
+  "allOf": [{ "$ref": "Object.json#" }],
+
+  "definitions": {
+    "possibleType": {
+      "enum": [
+        "Service",
+        "http://www.w3.org/ns/activitystreams#Service",
+        "https://www.w3.org/ns/activitystreams#Service"
+      ]
+    },
+    "byTypeRef": {
+      "properties": {
+        "type": {
+          "oneOf": [
+            { "$ref": "#/definitions/possibleType" },
+            { "type": "array", "contains": { "$ref": "#/definitions/possibleType" } }
+          ]
+        }
+      }
+    },
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+        { "$ref": "Link.json#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    }
+  }
+}

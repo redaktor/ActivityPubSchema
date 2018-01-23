@@ -1,0 +1,82 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/Question.json",
+  "title": "Question",
+  "description": "Represents a question being asked.",
+  "$comment": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-question",
+  "allOf": [
+    {
+      "$ref": "IntransitiveActivity.json#"
+    },
+    {
+      "properties": {
+        "type": { "$ref": "#/definitions/type" },
+        "oneOf": { "$ref": "#/definitions/oneOf" },
+        "anyOf": { "$ref": "#/definitions/anyOf" },
+        "closed": { "$ref": "#/definitions/closed" }
+      }
+    }
+  ],
+  "definitions": {
+    "possibleType": {
+      "enum": [
+        "Question",
+        "http://www.w3.org/ns/activitystreams#Question",
+        "https://www.w3.org/ns/activitystreams#Question"
+      ]
+    },
+    "byTypeRef": {
+      "properties": {
+        "type": {
+          "oneOf": [
+            { "$ref": "#/definitions/possibleType" },
+            { "type": "array", "contains": { "$ref": "#/definitions/possibleType" } }
+          ]
+        }
+      }
+    },
+    "type": {
+      "description": "The type of the object must be 'Question'.",
+      "const": "Question"
+    },
+    "oneOf": {
+      "description": "Identifies an exclusive option for a Question. Implies that the Question can have only a single answer.",
+      "allOf": [{ "$ref": "Object.json#/definitions/possibleRefArray" }]
+    },
+    "anyOf": {
+      "description": "Identifies an inclusive option for a Question. Implies that the Question can have multiple answers.",
+      "allOf": [{ "$ref": "Object.json#/definitions/possibleRefArray" }]
+    },
+    "closed": {
+      "description": "Indicates that a question has been closed, and answers are no longer accepted.",
+      "oneOf": [
+        { "$ref": "Object.json#/definitions/possibleRefArray" },
+        { "$ref": "Object.json#/definitions/xsd$dateTime" },
+        { "type": "boolean" }
+      ]
+    },
+
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+        { "$ref": "Link.json#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    }
+  }
+}

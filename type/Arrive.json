@@ -1,0 +1,50 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/Arrive.json",
+  "title": "Arrive",
+  "description": "An IntransitiveActivity that indicates that the actor has arrived at 'location'.",
+  "$comment": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-arrive",
+  "allOf": [ { "$ref": "Activity.json#" } ],
+
+  "definitions": {
+    "possibleType": {
+      "enum": [
+        "Arrive",
+        "http://www.w3.org/ns/activitystreams#Arrive",
+        "https://www.w3.org/ns/activitystreams#Arrive"
+      ]
+    },
+    "byTypeRef": {
+      "properties": {
+        "type": {
+          "oneOf": [
+            { "$ref": "#/definitions/possibleType" },
+            { "type": "array", "contains": { "$ref": "#/definitions/possibleType" } }
+          ]
+        }
+      }
+    },
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+        { "$ref": "Link.json#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    }
+  }
+}

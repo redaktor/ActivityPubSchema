@@ -1,0 +1,49 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/View.json",
+  "title": "View",
+  "description": "Indicates that the actor has viewed the object.",
+  "$comment": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-view",
+  "allOf": [ { "$ref": "Activity.json#" } ],
+  "definitions": {
+    "possibleType": {
+      "enum": [
+        "View",
+        "http://www.w3.org/ns/activitystreams#View",
+        "https://www.w3.org/ns/activitystreams#View"
+      ]
+    },
+    "byTypeRef": {
+      "properties": {
+        "type": {
+          "oneOf": [
+            { "$ref": "#/definitions/possibleType" },
+            { "type": "array", "contains": { "$ref": "#/definitions/possibleType" } }
+          ]
+        }
+      }
+    },
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+        { "$ref": "Link.json#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    }
+  }
+}

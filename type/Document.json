@@ -1,0 +1,49 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/Document.json",
+  "title": "Document",
+  "description": "Represents a document of any kind.",
+  "$comment": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-document",
+  "allOf": [ { "$ref": "Object.json#" } ],
+  "definitions": {
+    "possibleType": {
+      "enum": [
+        "Document",
+        "http://www.w3.org/ns/activitystreams#Document",
+        "https://www.w3.org/ns/activitystreams#Document"
+      ]
+    },
+    "byTypeRef": {
+      "properties": {
+        "type": {
+          "oneOf": [
+            { "$ref": "#/definitions/possibleType" },
+            { "type": "array", "contains": { "$ref": "#/definitions/possibleType" } }
+          ]
+        }
+      }
+    },
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+        { "$ref": "Link.json#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    }
+  }
+}

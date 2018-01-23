@@ -1,0 +1,50 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/Update.json",
+  "title": "Update",
+  "description": "Indicates that the actor has updated the object. Note: no defined mechanism for describing the set of modifications",
+  "$comment": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-update",
+  "allOf": [ { "$ref": "Activity.json#" } ],
+
+  "definitions": {
+    "possibleType": {
+      "enum": [
+        "Update",
+        "http://www.w3.org/ns/activitystreams#Update",
+        "https://www.w3.org/ns/activitystreams#Update"
+      ]
+    },
+    "byTypeRef": {
+      "properties": {
+        "type": {
+          "oneOf": [
+            { "$ref": "#/definitions/possibleType" },
+            { "type": "array", "contains": { "$ref": "#/definitions/possibleType" } }
+          ]
+        }
+      }
+    },
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+        { "$ref": "Link.json#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    }
+  }
+}

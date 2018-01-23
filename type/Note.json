@@ -1,0 +1,49 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/Note.json",
+  "title": "Note",
+  "description": "Represents a short written work typically less than a single paragraph in length.",
+  "$comment": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-note",
+  "allOf": [ { "$ref": "Object.json#" } ],
+  "definitions": {
+    "possibleType": {
+      "enum": [
+        "Note",
+        "http://www.w3.org/ns/activitystreams#Note",
+        "https://www.w3.org/ns/activitystreams#Note"
+      ]
+    },
+    "byTypeRef": {
+      "properties": {
+        "type": {
+          "oneOf": [
+            { "$ref": "#/definitions/possibleType" },
+            { "type": "array", "contains": { "$ref": "#/definitions/possibleType" } }
+          ]
+        }
+      }
+    },
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+        { "$ref": "Link.json#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    }
+  }
+}

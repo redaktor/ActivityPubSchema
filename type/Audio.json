@@ -1,0 +1,49 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/Audio.json",
+  "title": "Audio",
+  "description": "Represents an audio document of any kind.",
+  "$comment": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-audio",
+  "allOf": [ { "$ref": "Object.json#" } ],
+  "definitions": {
+    "possibleType": {
+      "enum": [
+        "Audio",
+        "http://www.w3.org/ns/activitystreams#Audio",
+        "https://www.w3.org/ns/activitystreams#Audio"
+      ]
+    },
+    "byTypeRef": {
+      "properties": {
+        "type": {
+          "oneOf": [
+            { "$ref": "#/definitions/possibleType" },
+            { "type": "array", "contains": { "$ref": "#/definitions/possibleType" } }
+          ]
+        }
+      }
+    },
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+        { "$ref": "Link.json#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    }
+  }
+}

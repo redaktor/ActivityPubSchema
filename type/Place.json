@@ -1,0 +1,92 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/Place.json",
+  "title": "Place",
+  "description": "Represents a logical or physical location. See https://www.w3.org/TR/activitystreams-vocabulary/#places",
+  "$comment": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-place",
+  "allOf": [
+    { "$ref": "Object.json#" },
+    {
+      "properties": {
+        "accuracy": { "$ref": "#/definitions/accuracy" },
+        "altitude": { "$ref": "#/definitions/altitude" },
+        "longitude": { "$ref": "#/definitions/longitude" },
+        "latitude": { "$ref": "#/definitions/latitude" },
+        "radius": { "$ref": "#/definitions/radius" },
+        "units": { "$ref": "#/definitions/units" }
+      }
+    }
+  ],
+  "definitions": {
+    "possibleType": {
+      "enum": [
+        "Place",
+        "http://www.w3.org/ns/activitystreams#Place",
+        "https://www.w3.org/ns/activitystreams#Place"
+      ]
+    },
+    "byTypeRef": {
+      "properties": {
+        "type": {
+          "oneOf": [
+            { "$ref": "#/definitions/possibleType" },
+            { "type": "array", "contains": { "$ref": "#/definitions/possibleType" } }
+          ]
+        }
+      }
+    },
+    "accuracy": {
+      "description": "Indicates the accuracy of position coordinates on a Place objects. Percentage.",
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "altitude": {
+      "description": "Indicates the altitude of a place. Use with 'units', default m (meters).",
+      "type": "number"
+    },
+    "longitude": {
+      "description": "The longitude of a place.",
+      "type": "number"
+    },
+    "latitude": {
+      "description": "The latitude of a place.",
+      "type": "number"
+    },
+    "radius": {
+      "description": "The radius from the given latitude and longitude for a Place. Use with 'units', default m (meters).",
+      "type": "number",
+      "minimum": 0
+    },
+    "units": {
+      "description": "Specifies the measurement units for the radius and altitude properties on a Place object. Default m (meters).",
+      "oneOf": [
+        { "type": "string", "format": "uri" },
+        { "enum": ["m", "cm", "km", "feet", "inches", "miles"] }
+      ]
+    },
+
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+        { "$ref": "Link.json#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    }
+  }
+}

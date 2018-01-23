@@ -1,0 +1,54 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/OrderedCollection.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Ordered Collection",
+  "description": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-orderedcollection",
+
+  "allOf": [
+    { "$ref": "Collection.json#" },
+    { "required": [ "orderedItems" ] }
+  ],
+
+  "definitions": {
+    "possibleType": {
+      "enum": [
+        "OrderedCollection",
+        "http://www.w3.org/ns/activitystreams#OrderedCollection",
+        "https://www.w3.org/ns/activitystreams#OrderedCollection"
+      ]
+    },
+    "byTypeRef": {
+      "properties": {
+        "type": {
+          "oneOf": [
+            { "$ref": "#/definitions/possibleType" },
+            { "type": "array", "contains": { "$ref": "#/definitions/possibleType" } }
+          ]
+        }
+      }
+    },
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+        { "$ref": "Link.json#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    }
+  }
+}

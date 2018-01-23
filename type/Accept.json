@@ -1,0 +1,50 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/Accept.json",
+  "title": "Accept",
+  "description": "Indicates that the actor accepts the object. 'target' optionally indicates the context of acceptance.",
+  "$comment": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-accept",
+  "allOf": [ { "$ref": "Activity.json#" } ],
+
+  "definitions": {
+    "possibleType": {
+      "enum": [
+        "Accept",
+        "http://www.w3.org/ns/activitystreams#Accept",
+        "https://www.w3.org/ns/activitystreams#Accept"
+      ]
+    },
+    "byTypeRef": {
+      "properties": {
+        "type": {
+          "oneOf": [
+            { "$ref": "#/definitions/possibleType" },
+            { "type": "array", "contains": { "$ref": "#/definitions/possibleType" } }
+          ]
+        }
+      }
+    },
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+        { "$ref": "Link.json#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    }
+  }
+}

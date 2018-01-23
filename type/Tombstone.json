@@ -1,0 +1,66 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/Tombstone.json",
+  "title": "Tombstone",
+  "description": "A Tombstone represents a content object that has been deleted.",
+  "$comment": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-tombstone",
+  "allOf": [
+    { "$ref": "Object.json#" },
+    {
+      "properties": {
+        "formerType": { "$ref": "#/definitions/formerType" },
+        "deleted": { "$ref": "#/definitions/deleted" }
+      }
+    }
+  ],
+  "definitions": {
+    "possibleType": {
+      "enum": [
+        "Tombstone",
+        "http://www.w3.org/ns/activitystreams#Tombstone",
+        "https://www.w3.org/ns/activitystreams#Tombstone"
+      ]
+    },
+    "byTypeRef": {
+      "properties": {
+        "type": {
+          "oneOf": [
+            { "$ref": "#/definitions/possibleType" },
+            { "type": "array", "contains": { "$ref": "#/definitions/possibleType" } }
+          ]
+        }
+      }
+    },
+    "formerType": {
+      "description": "Identifies the type of the object that was deleted.",
+      "type": "string"
+    },
+    "deleted": {
+      "description": "A timestamp for when the object was deleted.",
+      "allOf": [{ "$ref": "Object.json#/definitions/xsd$dateTime" }]
+    },
+
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+        { "$ref": "Link.json#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,236 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/ActivityPub.json",
+  "title": "An INOFFICIAL PROPOSAL: JSON SCHEMAS for ActivityPub",
+  "description": "ISSUES EXIST: https://github.com/w3c/activitystreams/issues/ e.g. 436, 437, 443",
+  "$comment": "TODO - if content but NO mediaType then {\"contentMediaType\": \"text/html\"}",
+
+  "allOf": [
+    {
+      "type": "object",
+      "required": ["type"]
+    },
+    {
+      "if": { "$ref": "Collection.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Collection.json#" }
+    }, {
+      "if": { "$ref": "OrderedCollection.json#/definitions/byTypeRef" },
+      "then": { "$ref": "OrderedCollection.json#" }
+    }, {
+      "if": { "$ref": "CollectionPage.json#/definitions/byTypeRef" },
+      "then": { "$ref": "CollectionPage.json#" }
+    }, {
+      "if": { "$ref": "OrderedCollectionPage.json#/definitions/byTypeRef" },
+      "then": { "$ref": "OrderedCollectionPage.json#" }
+    },
+
+    {
+      "if": { "$ref": "Link.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Link.json#" }
+    },
+    {
+      "if": { "$ref": "Mention.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Mention.json#" }
+    },
+
+    {
+      "if": { "$ref": "Object.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Object.json#" }
+    },
+    {
+      "if": { "$ref": "Article.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Article.json#" }
+    }, {
+      "if": { "$ref": "Audio.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Audio.json#" }
+    }, {
+      "if": { "$ref": "Document.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Document.json#" }
+    }, {
+      "if": { "$ref": "Event.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Event.json#" }
+    }, {
+      "if": { "$ref": "Image.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Image.json#" }
+    }, {
+      "if": { "$ref": "Note.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Note.json#" }
+    }, {
+      "if": { "$ref": "Page.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Page.json#" }
+    }, {
+      "if": { "$ref": "Place.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Place.json#" }
+    }, {
+      "if": { "$ref": "Profile.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Profile.json#" }
+    }, {
+      "if": { "$ref": "Relationship.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Relationship.json#" }
+    }, {
+      "if": { "$ref": "Tombstone.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Tombstone.json#" }
+    }, {
+      "if": { "$ref": "Video.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Video.json#" }
+    },
+
+    {
+      "if": { "$ref": "Activity.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Activity.json#" }
+    },
+    {
+      "if": { "$ref": "Accept.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Accept.json#" }
+    }, {
+      "if": { "$ref": "Add.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Add.json#" }
+    }, {
+      "if": { "$ref": "Announce.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Announce.json#" }
+    }, {
+      "if": { "$ref": "Arrive.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Arrive.json#" }
+    }, {
+      "if": { "$ref": "Block.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Block.json#" }
+    }, {
+      "if": { "$ref": "Create.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Create.json#" }
+    }, {
+      "if": { "$ref": "Delete.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Delete.json#" }
+    }, {
+      "if": { "$ref": "Dislike.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Dislike.json#" }
+    }, {
+      "if": { "$ref": "Flag.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Flag.json#" }
+    }, {
+      "if": { "$ref": "Follow.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Follow.json#" }
+    }, {
+      "if": { "$ref": "Ignore.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Ignore.json#" }
+    }, {
+      "if": { "$ref": "Invite.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Invite.json#" }
+    }, {
+      "if": { "$ref": "Join.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Join.json#" }
+    }, {
+      "if": { "$ref": "Leave.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Leave.json#" }
+    }, {
+      "if": { "$ref": "Like.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Like.json#" }
+    }, {
+      "if": { "$ref": "Listen.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Listen.json#" }
+    }, {
+      "if": { "$ref": "Move.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Move.json#" }
+    }, {
+      "if": { "$ref": "Offer.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Offer.json#" }
+    }, {
+      "if": { "$ref": "Question.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Question.json#" }
+    }, {
+      "if": { "$ref": "Read.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Read.json#" }
+    }, {
+      "if": { "$ref": "Reject.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Reject.json#" }
+    }, {
+      "if": { "$ref": "Remove.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Remove.json#" }
+    }, {
+      "if": { "$ref": "TentativeAccept.json#/definitions/byTypeRef" },
+      "then": { "$ref": "TentativeAccept.json#" }
+    }, {
+      "if": { "$ref": "TentativeReject.json#/definitions/byTypeRef" },
+      "then": { "$ref": "TentativeReject.json#" }
+    }, {
+      "if": { "$ref": "Travel.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Travel.json#" }
+    }, {
+      "if": { "$ref": "Undo.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Undo.json#" }
+    }, {
+      "if": { "$ref": "Update.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Update.json#" }
+    }, {
+      "if": { "$ref": "View.json#/definitions/byTypeRef" },
+      "then": { "$ref": "View.json#" }
+    },
+
+    {
+      "if": { "$ref": "Actor.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Actor.json#" }
+    },
+    {
+      "if": { "$ref": "Application.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Application.json#" }
+    }, {
+      "if": { "$ref": "Group.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Group.json#" }
+    }, {
+      "if": { "$ref": "Organization.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Organization.json#" }
+    }, {
+      "if": { "$ref": "Person.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Person.json#" }
+    }, {
+      "if": { "$ref": "Service.json#/definitions/byTypeRef" },
+      "then": { "$ref": "Service.json#" }
+    }
+  ],
+
+  "definitions": {
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+        { "$ref": "Link.json#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    },
+
+    "objectTypes": {
+      "enum": [
+        "Article", "Audio", "Document", "Event", "Image", "Note", "Page", "Place",
+        "Profile", "Relationship", "Tombstone", "Video", "Object"
+      ]
+    },
+    "linkTypes": {
+      "enum": [ "Mention", "Link" ]
+    },
+    "actorTypes": {
+      "enum": ["Application", "Group", "Organization", "Person", "Service", "Actor"]
+    },
+    "activityTypes": {
+      "enum": [
+        "Accept", "Add", "Announce", "Arrive", "Block", "Create", "Delete",
+        "Dislike", "Flag", "Follow", "Ignore", "Invite", "Join", "Leave", "Like",
+        "Listen", "Move", "Offer", "Question", "Reject", "Read", "Remove",
+        "TentativeReject", "TentativeAccept", "Travel", "Undo", "Update", "View",
+        "Activity"
+      ]
+    }
+  }
+}

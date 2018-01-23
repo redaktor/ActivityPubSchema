@@ -1,0 +1,50 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/Group.json",
+  "title": "Group",
+  "description": "Represents a formal or informal collective of Actors.",
+  "$comment": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-group",
+  "allOf": [{ "$ref": "Object.json#" }],
+
+  "definitions": {
+    "possibleType": {
+      "enum": [
+        "Group",
+        "http://www.w3.org/ns/activitystreams#Group",
+        "https://www.w3.org/ns/activitystreams#Group"
+      ]
+    },
+    "byTypeRef": {
+      "properties": {
+        "type": {
+          "oneOf": [
+            { "$ref": "#/definitions/possibleType" },
+            { "type": "array", "contains": { "$ref": "#/definitions/possibleType" } }
+          ]
+        }
+      }
+    },
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+        { "$ref": "Link.json#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    }
+  }
+}

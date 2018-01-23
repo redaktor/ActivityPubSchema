@@ -1,0 +1,71 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/Relationship.json",
+  "title": "Relationship",
+  "description": "Describes a relationship between two individuals. 'subject' and 'object' identify the connected individuals.",
+  "$comment": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-relationship",
+  "allOf": [
+    { "$ref": "Object.json#" },
+    {
+      "properties": {
+        "subject": { "$ref": "#/definitions/subject" },
+        "object": { "$ref": "#/definitions/object" },
+        "relationship": { "$ref": "#/definitions/relationship" }
+      }
+    }
+  ],
+  "definitions": {
+    "possibleType": {
+      "enum": [
+        "Relationship",
+        "http://www.w3.org/ns/activitystreams#Relationship",
+        "https://www.w3.org/ns/activitystreams#Relationship"
+      ]
+    },
+    "byTypeRef": {
+      "properties": {
+        "type": {
+          "oneOf": [
+            { "$ref": "#/definitions/possibleType" },
+            { "type": "array", "contains": { "$ref": "#/definitions/possibleType" } }
+          ]
+        }
+      }
+    },
+    "subject": {
+      "description": "Identifies one of the connected individuals. Answers 'who'.",
+      "allOf": [{ "$ref": "Object.json#/definitions/possibleRef" }]
+    },
+    "object": {
+      "description": "Describes the entity to which the subject is related.",
+      "allOf": [{ "$ref": "Object.json#/definitions/possibleRefArray" }]
+    },
+    "relationship": {
+      "description": "Identifies the kind of relationship.",
+      "allOf": [{ "$ref": "Object.json#/definitions/possibleRefArray" }]
+    },
+
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+        { "$ref": "Link.json#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    }
+  }
+}

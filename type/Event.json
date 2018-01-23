@@ -1,0 +1,49 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/Event.json",
+  "title": "Event",
+  "description": "Represents any kind of event.",
+  "$comment": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-event",
+  "allOf": [ { "$ref": "Object.json#" } ],
+  "definitions": {
+    "possibleType": {
+      "enum": [
+        "Event",
+        "http://www.w3.org/ns/activitystreams#Event",
+        "https://www.w3.org/ns/activitystreams#Event"
+      ]
+    },
+    "byTypeRef": {
+      "properties": {
+        "type": {
+          "oneOf": [
+            { "$ref": "#/definitions/possibleType" },
+            { "type": "array", "contains": { "$ref": "#/definitions/possibleType" } }
+          ]
+        }
+      }
+    },
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+        { "$ref": "Link.json#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    }
+  }
+}

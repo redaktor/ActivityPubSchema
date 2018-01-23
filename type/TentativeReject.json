@@ -1,0 +1,50 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/TentativeReject.json",
+  "title": "Tentative Reject",
+  "description": "A specialization of Reject in which the rejection is considered tentative.",
+  "$comment": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-tentativereject",
+  "allOf": [ { "$ref": "Activity.json#" } ],
+
+  "definitions": {
+    "possibleType": {
+      "enum": [
+        "TentativeReject",
+        "http://www.w3.org/ns/activitystreams#TentativeReject",
+        "https://www.w3.org/ns/activitystreams#TentativeReject"
+      ]
+    },
+    "byTypeRef": {
+      "properties": {
+        "type": {
+          "oneOf": [
+            { "$ref": "#/definitions/possibleType" },
+            { "type": "array", "contains": { "$ref": "#/definitions/possibleType" } }
+          ]
+        }
+      }
+    },
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+        { "$ref": "Link.json#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    }
+  }
+}

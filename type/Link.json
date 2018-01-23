@@ -1,0 +1,112 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/Link.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Link",
+  "description": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-link",
+
+  "allOf": [
+    { "$ref": "JSONLD.json#" },
+    {
+      "type": "object",
+      "required": ["href", "type"],
+      "properties": {
+        "@context": { "default": "https://www.w3.org/ns/activitystreams" },
+        "type": { "$ref": "Object.json#/definitions/type" },
+        "mediaType": {
+          "description": "Identifies the MIME media type of the referenced resource.",
+          "allOf": [{"$ref": "Object.json#/definitions/mediaType"}]
+        },
+        "href": { "$ref": "#/definitions/href" },
+        "hreflang": { "$ref": "#/definitions/hreflang" },
+        "rel": { "$ref": "#/definitions/rel" },
+        "name": { "$ref": "#/definitions/name" },
+        "nameMap": { "$ref": "#/definitions/nameMap" },
+        "preview": { "$ref": "#/definitions/preview" },
+        "height": { "$ref": "#/definitions/height" },
+        "width": { "$ref": "#/definitions/width" }
+      },
+      "$comment": "TODO https://github.com/w3c/activitystreams/issues/443 for nameMap",
+      "not": { "required": ["name", "nameMap"] }
+    }
+  ],
+
+  "definitions": {
+    "href": {
+      "description": "The target resource pointed to.",
+      "type": "string",
+      "format": "uri"
+    },
+    "hreflang": {
+      "description": "Hints as to the language used by the target resource. Value must be a [BCP47] Language-Tag.",
+      "type": "string",
+      "pattern": "^(?:(en-GB-oed|i-ami|i-bnn|i-default|i-enochian|i-hak|i-klingon|i-lux|i-mingo|i-navajo|i-pwn|i-tao|i-tay|i-tsu|sgn-BE-FR|sgn-BE-NL|sgn-CH-DE)|(art-lojban|cel-gaulish|no-bok|no-nyn|zh-guoyu|zh-hakka|zh-min|zh-min-nan|zh-xiang))$|^((?:[a-z]{2,3}(?:(?:-[a-z]{3}){1,3})?)|[a-z]{4}|[a-z]{5,8})(?:-([a-z]{4}))?(?:-([a-z]{2}|\\d{3}))?((?:-(?:[\\da-z]{5,8}|\\d[\\da-z]{3}))*)?((?:-[\\da-wy-z](?:-[\\da-z]{2,8})+)*)?(-x(?:-[\\da-z]{1,8})+)?$|^(x(?:-[\\da-z]{1,8})+)$"
+    },
+    "rel": {
+      "description": "A link relation associated with a Link. Must conform to both [HTML5] and [RFC5988] 'link relation'.",
+      "type": "string",
+      "pattern": "^[^\\u0020\\u0009\\u000A\\u000C\\u000D\\u002C]+$"
+    },
+    "name": {
+      "description": "A simple, human-readable plain-text name for the link object.",
+      "allOf": [{"$ref": "Object.json#/definitions/name"}]
+    },
+    "nameMap": {
+      "description": "Multiple language tagged representations of a simple, human-readable plain-text name for the link object.",
+      "allOf": [{"$ref": "Object.json#/definitions/nameMap"}]
+    },
+    "preview": {
+      "description": "Identifies an entity that provides a preview of this object.",
+      "allOf": [{"$ref": "Object.json#/definitions/possibleRefArray"}]
+    },
+    "height": {
+      "description": "Specifies a hint as to the rendering height in device-independent pixels of the linked resource.",
+      "type": "integer",
+      "minimum": 0
+    },
+    "width": {
+      "description": "Specifies a hint as to the rendering width in device-independent pixels of the linked resource.",
+      "type": "integer",
+      "minimum": 0
+    },
+
+    "possibleType": {
+      "enum": [
+        "Link",
+        "http://www.w3.org/ns/activitystreams#Link",
+        "https://www.w3.org/ns/activitystreams#Link"
+      ]
+    },
+    "byTypeRef": {
+      "properties": {
+        "type": {
+          "oneOf": [
+            { "$ref": "#/definitions/possibleType" },
+            { "type": "array", "contains": { "$ref": "#/definitions/possibleType" } }
+          ]
+        }
+      }
+    },
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    }
+  }
+}

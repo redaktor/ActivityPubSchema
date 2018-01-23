@@ -1,0 +1,73 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/CollectionPage.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Collection Page",
+  "description": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-collectionpage",
+
+  "allOf": [
+    { "$ref": "Collection.json#" },
+    {
+      "properties": {
+        "partOf": { "$ref": "#/definitions/partOf" },
+        "next": { "$ref": "#/definitions/next" },
+        "prev": { "$ref": "#/definitions/prev" }
+      }
+    }
+  ],
+
+  "definitions": {
+    "partOf": {
+      "description": "Identifies the Collection to which a CollectionPage objects items belong.",
+      "allOf": [{ "$ref": "Collection.json#/definitions/possibleRefArray" }]
+    },
+    "next": {
+      "description": "In a paged Collection, indicates the next page of items.",
+      "allOf": [{ "$ref": "#/definitions/possibleRef" }]
+    },
+    "prev": {
+      "description": "In a paged Collection, identifies the previous page of items.",
+      "allOf": [{ "$ref": "#/definitions/possibleRef" }]
+    },
+
+    "possibleType": {
+      "enum": [
+        "CollectionPage",
+        "http://www.w3.org/ns/activitystreams#CollectionPage",
+        "https://www.w3.org/ns/activitystreams#CollectionPage"
+      ]
+    },
+    "byTypeRef": {
+      "properties": {
+        "type": {
+          "oneOf": [
+            { "$ref": "#/definitions/possibleType" },
+            { "type": "array", "contains": { "$ref": "#/definitions/possibleType" } }
+          ]
+        }
+      }
+    },
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+        { "$ref": "Link.json#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    }
+  }
+}

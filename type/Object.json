@@ -1,0 +1,300 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/Object.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Object",
+  "description": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-object",
+
+  "allOf": [
+    { "$ref": "JSONLD.json#" },
+    {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "@context": { "default": "https://www.w3.org/ns/activitystreams" },
+        "id": { "$ref": "#/definitions/id" },
+        "type": { "$ref": "#/definitions/type" },
+        "source": { "$ref": "#/definitions/source" },
+        "mediaType": {
+          "description": "Identifies the MIME media type of the content property.",
+          "allOf": [{"$ref": "#/definitions/mediaType"}]
+        },
+        "content": { "$ref": "#/definitions/content" },
+        "contentMap": { "$ref": "#/definitions/contentMap" },
+        "name": { "$ref": "#/definitions/name" },
+        "nameMap": { "$ref": "#/definitions/nameMap" },
+        "summary": { "$ref": "#/definitions/summary" },
+        "summaryMap": { "$ref": "#/definitions/summaryMap" },
+        "attachment": { "$ref": "#/definitions/attachment" },
+        "attributedTo": { "$ref": "#/definitions/attributedTo" },
+        "audience": { "$ref": "#/definitions/audience" },
+        "bcc": { "$ref": "#/definitions/bcc" },
+        "bto": { "$ref": "#/definitions/bto" },
+        "cc": { "$ref": "#/definitions/cc" },
+        "context": { "$ref": "#/definitions/context" },
+        "duration": { "$ref": "#/definitions/duration" },
+        "endTime": { "$ref": "#/definitions/endTime" },
+        "generator": { "$ref": "#/definitions/generator" },
+        "icon": { "$ref": "#/definitions/icon" },
+        "image": { "$ref": "#/definitions/image" },
+        "inReplyTo": { "$ref": "#/definitions/inReplyTo" },
+        "location": { "$ref": "#/definitions/location" },
+        "preview": { "$ref": "#/definitions/preview" },
+        "published": { "$ref": "#/definitions/published" },
+        "replies": { "$ref": "#/definitions/replies" },
+        "startTime": { "$ref": "#/definitions/startTime" },
+        "tag": { "$ref": "#/definitions/tag" },
+        "to": { "$ref": "#/definitions/to" },
+        "updated": { "$ref": "#/definitions/updated" },
+        "url": { "$ref": "#/definitions/url" }
+      },
+      "$comment": "Link MUST be excluded! TODO https://github.com/w3c/activitystreams/issues/443 for ...Map",
+      "not": {
+        "anyOf": [
+          {"properties": {"type": {"enum": ["Link"]}}},
+          {"required": ["name", "nameMap"]},
+          {"required": ["content", "contentMap"]},
+          {"required": ["summary", "summaryMap"]}
+        ]
+      }
+    }
+  ],
+
+  "definitions": {
+    "id": {
+      "description": "The object's unique global identifier (optional in transient objects).",
+      "oneOf": [
+        { "$ref": "#/definitions/uri" },
+        { "type": "null" }
+      ]
+    },
+    "type": {
+      "description": "The type of the object.",
+      "allOf": [{ "$ref": "#/definitions/plainStrings" }]
+    },
+    "source": {
+      "description": "Convey some sort of source from which the content markup was derived.",
+      "type": "object",
+      "properties": {
+        "content": {
+          "description": "The source content representation of the Object encoded as a JSON string (use mediaType, defaults to HTML).",
+          "type": "string"
+        },
+        "mediaType": { "$ref": "#/definitions/mediaType" }
+      }
+    },
+    "mediaType": {
+      "$comment": "FIXME ISSUE EXISTS https://github.com/w3c/activitystreams/issues/443#issuecomment-358904543",
+      "description": "Identifies the MIME media type of the link or content property",
+      "type": "string",
+      "pattern": "(application|audio|font|example|image|message|model|multipart|text|video|x-(?:[0-9A-Za-z!#$%&'*+.^_`|~-]+))[/]([0-9A-Za-z!#$%&'*+.^_`|~-]+)"
+    },
+
+    "content": {
+      "description": "The content representation of the Object encoded as a JSON string (use mediaType, defaults to HTML).",
+      "allOf": [{ "$ref": "#/definitions/strings" }]
+    },
+    "contentMap": {
+      "$comment": "FIXME ISSUE EXISTS https://github.com/w3c/activitystreams/issues/443",
+      "description": "Multilanguage content representation of the Object encoded as a JSON string (mediaType, default HTML).",
+      "allOf": [{ "$ref": "#/definitions/langMap" }]
+    },
+    "name": {
+      "description": "A simple, human-readable, plain-text name for the object.",
+      "allOf": [{ "$ref": "#/definitions/plainStrings" }]
+    },
+    "nameMap": {
+      "$comment": "FIXME ISSUE EXISTS https://github.com/w3c/activitystreams/issues/443",
+      "description": "Multiple language tagged representations of a simple, human-readable, plain-text name for the object.",
+      "allOf": [{ "$ref": "#/definitions/langMap" }]
+    },
+    "summary": {
+      "description": "A natural language summarization of the object encoded as HTML.",
+      "allOf": [{ "$ref": "#/definitions/htmlStrings" }]
+    },
+    "summaryMap": {
+      "$comment": "FIXME ISSUE EXISTS https://github.com/w3c/activitystreams/issues/443",
+      "description": "Multiple language tagged summaries of the object encoded as HTML.",
+      "allOf": [{ "$ref": "#/definitions/langMap" }]
+    },
+
+    "attachment": {
+      "description": "Identifies a resource attached or related to an object that potentially requires special handling.",
+      "allOf": [{ "$ref": "#/definitions/possibleRefArray" }]
+    },
+    "attributedTo": {
+      "description": "Identifies one or more entities to which this object is attributed.",
+      "allOf": [{ "$ref": "#/definitions/possibleRefArray" }]
+    },
+    "audience": {
+      "description": "Identifies one or more entities that represent the total population of entities for which the object can considered to be relevant.",
+      "allOf": [{ "$ref": "#/definitions/possibleRefArray" }]
+    },
+    "bcc": {
+      "description": "Identifies one or more Objects that are part of the private secondary audience of this Object.",
+      "allOf": [{ "$ref": "#/definitions/possibleRefArray" }]
+    },
+    "bto": {
+      "description": "Identifies an Object that is part of the private primary audience of this Object.",
+      "allOf": [{ "$ref": "#/definitions/possibleRefArray" }]
+    },
+    "cc": {
+      "description": "Identifies an Object that is part of the public secondary audience of this Object.",
+      "allOf": [{ "$ref": "#/definitions/possibleRefArray" }]
+    },
+    "context": {
+      "description": "Identifies the context within which the object exists or an activity was performed.",
+      "allOf": [{ "$ref": "#/definitions/possibleRefArray" }]
+    },
+    "duration": {
+      "description": "For a time-bound resource the duration property indicates the object's approximate duration.",
+      "allOf": [{ "$ref": "#/definitions/xsd$duration" }]
+    },
+    "endTime": {
+      "description": "The date and time describing the actual or expected ending time of the object.",
+      "allOf": [{ "$ref": "#/definitions/xsd$dateTime" }]
+    },
+    "generator": {
+      "description": "Identifies the entity (e.g. an application) that generated the object.",
+      "allOf": [{ "$ref": "#/definitions/possibleRefArray" }]
+    },
+    "icon": {
+      "description": "Indicates an entity that describes an icon (ratio 1:1, suitable for small size).",
+      "allOf": [{ "$ref": "Image.json#/definitions/possibleRefArray" }]
+    },
+    "image": {
+      "description": "Indicates an entity that describes an image for this object (any ratio or size).",
+      "allOf": [{ "$ref": "Image.json#/definitions/possibleRefArray" }]
+    },
+    "inReplyTo": {
+      "description": "Indicates one or more entities for which this object is considered a response.",
+      "allOf": [{ "$ref": "#/definitions/possibleRefArray" }]
+    },
+    "location": {
+      "description": "Indicates one or more physical or logical locations associated with the object.",
+      "allOf": [{ "$ref": "#/definitions/possibleRefArray" }]
+    },
+    "preview": {
+      "description": "Identifies an entity that provides a preview of this object.",
+      "allOf": [{ "$ref": "#/definitions/possibleRefArray" }]
+    },
+    "published": {
+      "description": "The date and time at which the object was published.",
+      "allOf": [{ "$ref": "#/definitions/xsd$dateTime" }]
+    },
+    "replies": {
+      "description": "Identifies a Collection containing objects considered to be responses to this object.",
+      "allOf": [{ "$ref": "Collection.json#/definitions/possibleRef" }]
+    },
+    "startTime": {
+      "description": "The date and time describing the actual or expected starting time of the object.",
+      "allOf": [{ "$ref": "#/definitions/xsd$dateTime" }]
+    },
+    "tag": {
+      "description": "One or more tags that have been associated with an objects. Can be any kind of Object.",
+      "allOf": [{ "$ref": "#/definitions/possibleRefArray" }]
+    },
+    "to": {
+      "description": "Identifies an entity considered to be part of the public primary audience of an Object.",
+      "allOf": [{ "$ref": "#/definitions/possibleRefArray" }]
+    },
+    "updated": {
+      "description": "The date and time at which the object was updated.",
+      "allOf": [{ "$ref": "#/definitions/xsd$dateTime" }]
+    },
+    "url": {
+      "description": "Identifies one or more links to representations of the object.",
+      "allOf": [{ "$ref": "Link.json#/definitions/possibleRefArray" }]
+    },
+
+    "uri": {
+      "type": "string",
+      "format": "uri"
+    },
+    "xsd$duration": {
+      "type": "string",
+      "description": "http://www.w3.org/2001/XMLSchema#duration",
+      "pattern": "^[-]?P(?!$)(?:\\d+Y)?(?:\\d+M)?(?:\\d+D)?(?:T(?!$)(?:\\d+H)?(?:\\d+M)?(?:\\d+(?:\\.\\d+)?S)?)?$"
+    },
+    "xsd$dateTime": {
+      "type": "string",
+      "description": "http://www.w3.org/2001/XMLSchema#date-time",
+      "format": "date-time",
+      "pattern": "^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\\.[0-9]+)?(Z|[+-](?:2[0-3]|[01][0-9]):[0-5][0-9])?$"
+    },
+    "langMap": {
+      "type": "object",
+      "patternProperties": {
+        "^(?:(en-GB-oed|i-ami|i-bnn|i-default|i-enochian|i-hak|i-klingon|i-lux|i-mingo|i-navajo|i-pwn|i-tao|i-tay|i-tsu|sgn-BE-FR|sgn-BE-NL|sgn-CH-DE)|(art-lojban|cel-gaulish|no-bok|no-nyn|zh-guoyu|zh-hakka|zh-min|zh-min-nan|zh-xiang))$|^((?:[a-z]{2,3}(?:(?:-[a-z]{3}){1,3})?)|[a-z]{4}|[a-z]{5,8})(?:-([a-z]{4}))?(?:-([a-z]{2}|\\d{3}))?((?:-(?:[\\da-z]{5,8}|\\d[\\da-z]{3}))*)?((?:-[\\da-wy-z](?:-[\\da-z]{2,8})+)*)?(-x(?:-[\\da-z]{1,8})+)?$|^(x(?:-[\\da-z]{1,8})+)$": {
+          "type": "string"
+        }
+      }
+    },
+    "plainString": {
+      "type": "string",
+      "contentMediaType": "text/plain"
+    },
+    "htmlString": {
+      "type": "string",
+      "contentMediaType": "text/html"
+    },
+    "plainStrings": {
+      "oneOf": [
+        { "$ref": "#/definitions/plainString" },
+        { "type": "array", "items": { "$ref": "#/definitions/plainString" } }
+      ]
+    },
+    "htmlStrings": {
+      "oneOf": [
+        { "$ref": "#/definitions/htmlString" },
+        { "type": "array", "items": { "$ref": "#/definitions/htmlString" } }
+      ]
+    },
+    "strings": {
+      "oneOf": [
+        { "type": "string" },
+        { "type": "array", "items": { "type": "string" } }
+      ]
+    },
+
+    "possibleType": {
+      "enum": [
+        "Object",
+        "http://www.w3.org/ns/activitystreams#Object",
+        "https://www.w3.org/ns/activitystreams#Object"
+      ]
+    },
+    "byTypeRef": {
+      "properties": {
+        "type": {
+          "oneOf": [
+            { "$ref": "#/definitions/possibleType" },
+            { "type": "array", "contains": { "$ref": "#/definitions/possibleType" } }
+          ]
+        }
+      }
+    },
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+        { "$ref": "Link.json#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/Actor.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Actor",
+  "description": "https://www.w3.org/TR/activitypub",
+
+  "allOf": [
+    { "$ref": "Object.json#" },
+    {
+      "type": "object",
+      "properties": {
+        "outbox": { "$ref": "#/definitions/outbox" },
+        "inbox": { "$ref": "#/definitions/inbox" },
+        "followers": { "$ref": "#/definitions/followers" },
+        "following": { "$ref": "#/definitions/following" },
+        "liked": { "$ref": "#/definitions/liked" },
+
+        "preferredUsername": { "$ref": "#/definitions/preferredUsername" },
+        "endpoints": { "$ref": "#/definitions/endpoints" }
+      }
+    }
+  ],
+  "required": [
+    "@context",
+    "id",
+    "type",
+    "inbox",
+    "outbox"
+  ],
+
+  "definitions": {
+    "outbox": {
+      "description": "A link to an OrderedCollection comprised of all the messages produced by the actor; see 5.1 Outbox.",
+      "type": "string",
+      "format": "uri"
+    },
+    "inbox": {
+      "description": "A link to an OrderedCollection comprised of all the messages received by the actor; see 5.2 Inbox.",
+      "type": "string",
+      "format": "uri"
+    },
+    "followers": {
+      "description": "A link to a collection of the actors that follow this actor; see 5.3 Followers Collection.",
+      "type": "string",
+      "format": "uri"
+    },
+    "following": {
+      "description": "A link to a collection of the actors that this actor is following; see 5.4 Following Collection.",
+      "type": "string",
+      "format": "uri"
+    },
+    "liked": {
+      "description": "A link to a collection of objects this actor has liked; see 5.5 Liked Collection.",
+      "type": "string",
+      "format": "uri"
+    },
+
+    "preferredUsername": {
+      "description": "A short username which may be used to refer to the actor, with no uniqueness guarantees.",
+      "type": "string"
+    },
+    "endpoints": {
+      "description": "A json object which maps additional endpoints which may be useful.",
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "proxyUrl": {
+          "description": "Endpoint URI so this actor's clients may access remote objects which require authentication to access.",
+          "type": "string",
+          "format": "uri"
+        },
+        "oauthAuthorizationEndpoint": {
+          "description": "URI for OAuth 2.0 bearer tokens [RFC6749] [RFC6750], so clients may obtain a new authorization grant.",
+          "type": "string",
+          "format": "uri"
+        },
+        "oauthTokenEndpoint": {
+          "description": "URI for OAuth 2.0 bearer tokens [RFC6749] [RFC6750], so clients may acquire an access token.",
+          "type": "string",
+          "format": "uri"
+        },
+        "provideClientKey": {
+          "description": "URI at which clients may authorize a client's public key for client to server interactions.",
+          "type": "string",
+          "format": "uri"
+        },
+        "signClientKey": {
+          "description": "URI at which clients key may be signed by the actor's key to act on behalf of actor with foreign servers.",
+          "type": "string",
+          "format": "uri"
+        },
+        "sharedInbox": {
+          "description": "URI optional used for wide delivery of publicly addressed activities and activities sent to followers.",
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+
+    "possibleType": {
+      "enum": [
+        "Actor",
+        "http://www.w3.org/ns/activitystreams#Actor",
+        "https://www.w3.org/ns/activitystreams#Actor"
+      ]
+    },
+    "byTypeRef": {
+      "properties": {
+        "type": {
+          "oneOf": [
+            { "$ref": "#/definitions/possibleType" },
+            { "type": "array", "contains": { "$ref": "#/definitions/possibleType" } }
+          ]
+        }
+      }
+    },
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+        { "$ref": "Link.json#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    }
+  }
+}

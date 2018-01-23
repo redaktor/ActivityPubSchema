@@ -1,0 +1,50 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/Organization.json",
+  "title": "Organization",
+  "description": "Represents an organization.",
+  "$comment": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-organization",
+  "allOf": [{ "$ref": "Object.json#" }],
+
+  "definitions": {
+    "possibleType": {
+      "enum": [
+        "Organization",
+        "http://www.w3.org/ns/activitystreams#Organization",
+        "https://www.w3.org/ns/activitystreams#Organization"
+      ]
+    },
+    "byTypeRef": {
+      "properties": {
+        "type": {
+          "oneOf": [
+            { "$ref": "#/definitions/possibleType" },
+            { "type": "array", "contains": { "$ref": "#/definitions/possibleType" } }
+          ]
+        }
+      }
+    },
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+        { "$ref": "Link.json#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    }
+  }
+}

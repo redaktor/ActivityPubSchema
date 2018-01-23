@@ -1,0 +1,50 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/Person.json",
+  "title": "Person",
+  "description": "Represents an individual person.",
+  "$comment": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-person",
+  "allOf": [{ "$ref": "Object.json#" }],
+
+  "definitions": {
+    "possibleType": {
+      "enum": [
+        "Person",
+        "http://www.w3.org/ns/activitystreams#Person",
+        "https://www.w3.org/ns/activitystreams#Person"
+      ]
+    },
+    "byTypeRef": {
+      "properties": {
+        "type": {
+          "oneOf": [
+            { "$ref": "#/definitions/possibleType" },
+            { "type": "array", "contains": { "$ref": "#/definitions/possibleType" } }
+          ]
+        }
+      }
+    },
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+        { "$ref": "Link.json#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    }
+  }
+}

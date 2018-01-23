@@ -1,0 +1,66 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/IntransitiveActivity.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Intransitive Activity",
+  "description": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-activity",
+
+  "allOf": [
+    { "$ref": "Object.json#" },
+    {
+      "properties": {
+        "actor": { "$ref": "#/definitions/actor" },
+        "target": { "$ref": "#/definitions/target" },
+        "result": { "$ref": "#/definitions/result" },
+        "origin": { "$ref": "#/definitions/origin" },
+        "instrument": { "$ref": "#/definitions/instrument" }
+      }
+    }
+  ],
+
+  "definitions": {
+    "actor": {
+      "description": "Describes one or more entities that either performed or are expected to perform the activity.",
+      "allOf": [{ "$ref": "Actor.json#/definitions/possibleRefArray" }]
+    },
+    "target": {
+      "description": "Describes the indirect object, or target, of the activity. E.g. where to was it added.",
+      "allOf": [{ "$ref": "Object.json#/definitions/possibleRefArray" }]
+    },
+    "result": {
+      "description": "Describes the result of the activity.",
+      "allOf": [{ "$ref": "Object.json#/definitions/possibleRefArray" }]
+    },
+    "origin": {
+      "description": "Describes an indirect object of the activity from which the activity is directed.",
+      "allOf": [{ "$ref": "Object.json#/definitions/possibleRefArray" }]
+    },
+    "instrument": {
+      "description": "Identifies one or more objects used (or to be used) in the completion of an Activity.",
+      "allOf": [{ "$ref": "Object.json#/definitions/possibleRefArray" }]
+    },
+
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+        { "$ref": "Link.json#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    }
+  }
+}

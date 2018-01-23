@@ -1,0 +1,54 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/Profile.json",
+  "title": "Profile",
+  "description": "A Profile is typically used to describe Actor Type objects. 'describes' references the object being described.",
+  "$comment": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-profile",
+  "allOf": [ { "$ref": "Object.json#" } ],
+  "definitions": {
+    "possibleType": {
+      "enum": [
+        "Profile",
+        "http://www.w3.org/ns/activitystreams#Profile",
+        "https://www.w3.org/ns/activitystreams#Profile"
+      ]
+    },
+    "byTypeRef": {
+      "properties": {
+        "type": {
+          "oneOf": [
+            { "$ref": "#/definitions/possibleType" },
+            { "type": "array", "contains": { "$ref": "#/definitions/possibleType" } }
+          ]
+        }
+      }
+    },
+    "describes": {
+      "description": "Identifies the object described by the Profile.",
+      "$ref": "Object.json#/definitions/possibleRef"
+    },
+
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+        { "$ref": "Link.json#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    }
+  }
+}

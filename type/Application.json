@@ -1,0 +1,50 @@
+{
+  "$id": "http://www.w3.org/ns/activitystreams/Application.json",
+  "title": "Application",
+  "description": "Describes a software application.",
+  "$comment": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-application",
+  "allOf": [{ "$ref": "Object.json#" }],
+
+  "definitions": {
+    "possibleType": {
+      "enum": [
+        "Application",
+        "http://www.w3.org/ns/activitystreams#Application",
+        "https://www.w3.org/ns/activitystreams#Application"
+      ]
+    },
+    "byTypeRef": {
+      "properties": {
+        "type": {
+          "oneOf": [
+            { "$ref": "#/definitions/possibleType" },
+            { "type": "array", "contains": { "$ref": "#/definitions/possibleType" } }
+          ]
+        }
+      }
+    },
+    "possibleRef": {
+			"oneOf": [
+				{ "$ref": "#" },
+        { "$ref": "Link.json#" },
+				{
+					"type": "string",
+					"format": "uri",
+					"links": [{
+						"rel": "full",
+						"href": "{+$}"
+					}]
+				}
+			]
+		},
+    "possibleRefArray": {
+      "oneOf": [
+        { "$ref": "#/definitions/possibleRef" },
+        {
+          "type": "array",
+          "items": { "$ref": "#/definitions/possibleRef" }
+        }
+      ]
+    }
+  }
+}
