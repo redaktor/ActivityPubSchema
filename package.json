@@ -17,7 +17,7 @@
     "JSON-Schema"
   ],
   "author": "Sebastian Lasse <api@redaktorcms.com> (https://github.com/redaktor/)",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "ajv": "^6.0.1"
   }
