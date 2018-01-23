@@ -5,10 +5,10 @@
 an inofficial proposal (JSON Schema, draft 07)<br>
 [![-](https://raw.githubusercontent.com/redaktor/style/master/assets/readme/lineBlue.png)](#)<br>
 
-Specifications:
-https://www.w3.org/TR/activitypub/
-https://www.w3.org/TR/activitystreams-vocabulary/
-https://www.w3.org/TR/activitystreams-core/
+Specifications: <br>
+https://www.w3.org/TR/activitypub/ <br>
+https://www.w3.org/TR/activitystreams-vocabulary/ <br>
+https://www.w3.org/TR/activitystreams-core/ <br>
 
 **Work in Progress**
 
@@ -22,7 +22,7 @@ Any implementor of ActivityPub wants to validate incoming data or build forms fo
 
 ## How do I use this package?
 
-With any software consuming JSON Schema draft 07. <br>
+With any software consuming JSON Schema draft 07 … <br>
 A node.js script to validate all the examples from [activitystreams-vocabulary](https://www.w3.org/TR/activitystreams-vocabulary/) is included:<br>
 - `cd` to the project root
 - `npm i`
@@ -36,11 +36,11 @@ Raise issues ...
 
 **NOTE**
 There are blocking issues that need to be resolved before we can go on:<br>
-https://github.com/w3c/activitystreams/issues/437
-https://github.com/w3c/activitystreams/issues/443
-https://github.com/w3c/activitystreams/issues/157
-https://github.com/w3c/activitypub/issues/290
-https://github.com/w3c/activitypub/issues/291
+https://github.com/w3c/activitystreams/issues/437 <br>
+https://github.com/w3c/activitystreams/issues/443 <br>
+https://github.com/w3c/activitystreams/issues/157 <br>
+https://github.com/w3c/activitypub/issues/290 <br>
+https://github.com/w3c/activitypub/issues/291 <br>
 
 
 
